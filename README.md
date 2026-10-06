@@ -142,3 +142,15 @@ open project_schedule.html  # macOS
 - [**Pydantic Documentation**](https://docs.pydantic.dev/latest/): Data validation used for the structured LLM output
 - [**Plotly Gantt Charts**](https://plotly.com/python/gantt/): Timeline charts like the one the agent generates
 - [**uv Documentation**](https://docs.astral.sh/uv/): The package manager used in this repository
+
+## My Results
+
+![Project Schedule Gantt chart](images/gantt_chart.png)
+
+**Project:** Create a secure, multi-user AI dashboard using LangGraph and React.
+**Team:** Alice (Lead Dev), Bob (Frontend), Charlie (QA)
+**Risk Score History:** 37 → 40 (the agent ran 2 iterations: audit → optimize → audit)
+
+### Fixes I made
+- **Scheduler & Allocator nodes:** The LLM sometimes returned JSON in an unexpected format (e.g. `{"task_id": "Alice"}` instead of a list), so tasks ended up unscheduled or unassigned. I made the parsing handle these formats and added an example output to the Scheduler prompt.
+- **Observation:** The risk score went *up* after optimization (37 → 40), so the agent's self-correction loop doesn't always improve the plan. A human PM should still review the output.
